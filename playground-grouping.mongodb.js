@@ -18,7 +18,7 @@ use('aggree');
 // You can use '.hasNext()/.next()' to iterate through the cursor page by page.
 
 
-
+// gruoup by gemder
 const groupByGender = db.getCollection('users').aggregate([
     {
       $group: {
@@ -27,6 +27,7 @@ const groupByGender = db.getCollection('users').aggregate([
     },
 ]);
 
+// group by age 
 const groupByAge = db.getCollection('users').aggregate([
     {
       $group: {
@@ -36,6 +37,7 @@ const groupByAge = db.getCollection('users').aggregate([
 ]);
 
 
+// What is the average age of all users?  
 const averageAge = db.getCollection('users').aggregate([
     {
       $group: {
@@ -47,6 +49,9 @@ const averageAge = db.getCollection('users').aggregate([
     },
 ]);
 
+
+
+// What is the average age of males and average age of females?  
 const groupByGenderAndAverageAge = db.getCollection('users').aggregate([
     {
       $group: {
@@ -58,6 +63,8 @@ const groupByGenderAndAverageAge = db.getCollection('users').aggregate([
     },
 ]);
 
+
+// List the count of Fruits 
 const groupAndCount = db.getCollection('users').aggregate([
     {
       $group: {
@@ -69,6 +76,8 @@ const groupAndCount = db.getCollection('users').aggregate([
     },
 ]);
 
+
+// Sort the fruits by higest count
 const groupCountAndSort = db.getCollection('users').aggregate([
     {
       $group: {
@@ -86,6 +95,8 @@ const groupCountAndSort = db.getCollection('users').aggregate([
 ]);
 
 
+
+// List the top 2 most common fruits 
 const groupCountAndSortAndimit = db.getCollection('users').aggregate([
     {
       $group: {

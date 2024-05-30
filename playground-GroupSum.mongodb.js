@@ -13,34 +13,45 @@
 use('aggree');
 
 
-// Here we run an aggregation and open a cursor to the results.
-// Use '.toArray()' to exhaust the cursor to return the whole result set.
-// You can use '.hasNext()/.next()' to iterate through the cursor page by page.
-
-
-// List active users 
-const isActive = db.getCollection('users').aggregate([
-  {
-    $match: {
-    // set isActive property true or false
-      isActive: true
+// find the total number of males and females
+db.getCollection('users').aggregate([
+ {
+    $group: {
+      _id: "$gender",
+      genderCount: {
+        $sum: 1
+      }
     }
-  }
+ }
 ]);
 
-// How many users are InActive?
-const countInActive = db.getCollection('users').aggregate([
+
+// Which country has the highest number of registered users?
+db.getCollection('users').aggregate([
     {
-      $match: {
-        isActive: false
-      }
+       $group: {
+         _id: "$company.location.country",
+         registeredUsers: {
+           $sum: 1
+         }
+       }
     },
     {
-        $count: 'inactiveUsers'
+        $sort: {
+            registeredUsers: -1
+        }
+    },
+    {
+        $limit: 1
     }
-]);
+]); 
 
 
-
-
-
+// list all unique eye colors present in collection
+db.getCollection('users').aggregate([
+    {
+       $group: {
+         _id: "$eyeColor",
+       }
+    }
+]);   
