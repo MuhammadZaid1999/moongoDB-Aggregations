@@ -85,3 +85,41 @@ db.getCollection('users').aggregate([
     }
   }
 ]);
+
+
+// List users whose age between 30 to 35
+db.getCollection('users').aggregate([
+  {
+    $match: {
+      age: { $gte: 30, $lte: 35 }
+    },
+  },
+  {
+    $project: {
+      name: 1,
+      age: 1
+    }
+  }
+]);
+
+
+// $and opeator
+db.getCollection('users').aggregate([
+  {
+    $match: {
+      $and: [{age: {$gt: 30}}, {eyeColor: 'green'} ]
+    },
+  },
+]);
+
+
+// List users which are exist with 3 tags
+db.getCollection('users').aggregate([
+  {
+    $match: {
+      tags: {
+        $size: 3
+      }
+    },
+  },
+]);
